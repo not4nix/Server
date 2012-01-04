@@ -11,7 +11,7 @@ import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Hashtable;
+import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -123,7 +123,7 @@ public class XMLWrapper {
 	 * @param m Message's resultset
 	 * @return xml
 	 */
-	public String createXMLForRoom(ResultSet u, ResultSet m){
+	public String createXMLDocument(ResultSet u, ResultSet m){
 		try {
 			OutputStream os = new ByteArrayOutputStream();
 			File f = new File("D:\\Server\\messages.xml");
@@ -201,7 +201,7 @@ public class XMLWrapper {
 	 * @param userId user's id
 	 * @return xml
 	 */
-	public String createXMLNewRoomMessages(int roomId, String message, int userId){
+	public String createXMLRDocument(int roomId, String message, int userId){
 		try {
 			OutputStream os = new ByteArrayOutputStream();
 			File f = new File("D:\\Server\\new_room_messages.xml");
@@ -386,11 +386,11 @@ public class XMLWrapper {
 	 * XML Parser
 	 * parse input stream from the client
 	 * for detail information @see the package java.xml.parsers
-	 * @param hash Hashtable
+	 * @param map Hashtable
 	 * @param src source
 	 * @throws UnsupportedEncodingException
 	 */
-	public void parse(Hashtable<String, String> hash, String src) throws UnsupportedEncodingException{
+	public void parse(HashMap<String, String> map, String src) throws UnsupportedEncodingException{
 		/**
 		 * Defines a factory API that enables applications to obtain a parser that produces DOM 
 		 * object trees from XML documents.
@@ -429,7 +429,7 @@ public class XMLWrapper {
 					String node = children.getNodeName();
 					if(textNode != null){
 						String text = textNode.getData().trim();
-						hash.put(node, text);
+						map.put(node, text);
 					}
 				}
 			}
@@ -445,3 +445,4 @@ public class XMLWrapper {
 		}
 	}
 }
+

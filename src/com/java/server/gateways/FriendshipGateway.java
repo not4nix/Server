@@ -1,56 +1,53 @@
 package com.java.server.gateways;
 
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import com.java.server.database.Database;
-import com.java.server.utils.ResponseCodes;
-
 public class FriendshipGateway extends TableGateway{
-
-	protected FriendshipGateway(String users, String friends, String messages,
-			String chat, String membership, String chatUser) {
-		super(users, friends, messages, chat, membership, chatUser);
+	private String tableName = "friendship_tbl";
+	public FriendshipGateway(Connection con, String tableName) {
+		super(con, "friendship_tbl");
 		// TODO Auto-generated constructor stub
 	}
 	
-	public synchronized ResultSet findAllMembersOfInitiator(String initiatorName){
+	public synchronized ResultSet findAllFriendsOfInitiator(String initiatorName){
 		try {
-			Statement stmt = Database.getInstance().createConnection().createStatement();
-			stmt.executeQuery("SELECT * FROM "+getFriendTable()+"WHERE `initiatorName` ='"+initiatorName+"'");
-			stmt.close();
+			Statement st = con.createStatement();
+			String sql = "SELECT * FROM "+tableName+"WHERE `initiatorName`='"+initiatorName+"'";
+			ResultSet rs = st.executeQuery(sql);
+			while(rs.next()){
+				String friendName = rs.getString("friendName");
+			}
 		}
 		catch(SQLException ex){
-			Logger.getLogger(FriendshipGateway.class.getName()).log(Level.SEVERE,null,ex);
+			Logger.getLogger(FriendshipGateway.class.getName()).log(Level.SEVERE, "Exception occured", ex);
 		}
 		return null;
 	}
 	
-	public synchronized String addFriend(String friendName, String initiatorName){
+	public synchronized void addFriend(String friendName, String initiatorName){
 		try {
-			Statement stmt = Database.getInstance().createConnection().createStatement();
-			stmt.executeUpdate("INSERT INTO "+getFriendTable()+"(`friendName`,`initiatorName`) " +
-					"VALUES('"+friendName+"','"+initiatorName+"')");
-			stmt.close();
+			Statement st = con.createStatement();
+			String sql = "INSERT INTO "+tableName+"(`friendName`,`initiatorName`) VALUES('"+friendName+"','"+initiatorName+"')";
+			st.executeUpdate(sql);
 		}
 		catch(SQLException ex){
-			Logger.getLogger(FriendshipGateway.class.getName()).log(Level.SEVERE,null,ex);
+			Logger.getLogger(FriendshipGateway.class.getName()).log(Level.SEVERE, "Exception occured", ex);
 		}
-		return ResponseCodes.FriendAdded.toString();
 	}
 	
-	public synchronized String deleteFriend(int friendshipId){
+	public synchronized void deleteFriend(int friendId){
 		try {
-			Statement stmt = Database.getInstance().createConnection().createStatement();
-			stmt.executeUpdate("DELETE FROM "+getFriendTable()+"WHERE `id` ="+friendshipId);
-			stmt.close();
+			Statement st = con.createStatement();
+			String sql = "DELETE FROM "+tableName+"WHERE `friendId` = "+friendId;
+			st.executeUpdate(sql);
 		}
 		catch(SQLException ex){
-			Logger.getLogger(FriendshipGateway.class.getName()).log(Level.SEVERE,null,ex);
+			Logger.getLogger(FriendshipGateway.class.getName()).log(Level.SEVERE, "Exception occured", ex);
 		}
-		return ResponseCodes.FriendDeleted.toString();
 	}
 }

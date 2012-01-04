@@ -1,18 +1,12 @@
-package com.java.server.database;
+package com.java.server.db;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.RandomAccessFile;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class Database {
-	
 	private static volatile Database instance;
 	private String JdbcDriver = "com.mysql.jdbc.Driver";
 	//database url

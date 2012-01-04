@@ -1,33 +1,30 @@
 package com.java.server.controllers;
 
+import java.sql.Connection;
+import java.util.HashMap;
+
+import com.java.server.database.Database;
+import com.java.server.gateways.ChatUserGateway;
+import com.java.server.utils.HTTPRequest;
+import com.java.server.utils.HTTPResponse;
+import com.java.server.utils.Map;
+import com.java.server.utils.XMLWrapper;
+
 public class ChatController {
 	
-	//HTTP GET
-	public String getAllRooms(){
-		
-	}
-	//HTTP GET
-	public String getAllRoomsOfCreator(String creatorName){
-		
-	}
-	//HTTP PUT
-	public String addRoom(String info, String roomname, String creatorName){
-		
-	}
-	//HTTP POST
-	public String updateRoom(String info, String roomname, int id){
-		
-	}
-	//HTTP PUT
-	public String addUserToRoom(String login, String roomname){
-		
-	}
-	//HTTP DELETE
-	public String kickUserFromRoom(String login, String roomname){
-		
-	}
-	//HTTP DELETE
-	public String deleteRoom(String roomname){
-		
-	}
+//	public void addUserToChatRoom(HTTPRequest request, HTTPResponse response){
+//		try {
+//			Connection con = Database.getInstance().connect();
+//			String body = request.getBody();
+//			HashMap<String,String> map = new HashMap<String,String>();
+//			try {
+//				XMLWrapper.getInstance().parse(map, body);
+//				ChatUserGateway gateway = new ChatUserGateway(con, body);
+//				Map m = new Map();
+//				m.add("userId", map.get("userId"));
+//				m.add("chatId", map.get("chatId"));
+//				gateway.insert(m);
+//			}
+//		}
+//	}
 }
