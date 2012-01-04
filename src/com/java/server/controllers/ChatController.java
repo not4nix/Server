@@ -7,7 +7,6 @@ import com.java.server.database.Database;
 import com.java.server.gateways.ChatUserGateway;
 import com.java.server.utils.HTTPRequest;
 import com.java.server.utils.HTTPResponse;
-import com.java.server.utils.Map;
 import com.java.server.utils.XMLWrapper;
 
 public class ChatController {

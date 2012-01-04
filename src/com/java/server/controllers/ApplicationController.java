@@ -11,6 +11,9 @@ import com.java.server.utils.HTTPResponse;
 import com.java.server.utils.ResponseCodes;
 import com.java.server.utils.Router;
 
+/*
+ * Доделать, поправить
+ */
 public class ApplicationController {
 	
 	private ArrayList<Router> _rout = new ArrayList<Router>();

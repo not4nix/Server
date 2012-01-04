@@ -12,9 +12,12 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import com.java.server.controllers.ApplicationController;
-import com.java.server.db.Database;
+import com.java.server.database.Database;
 import com.java.server.gateways.ChatUserGateway;
 
+/*
+ * Поправить этот бред
+ */
 public class Server implements Runnable{
 
 	/**

@@ -9,6 +9,7 @@ import java.util.logging.Logger;
 
 public class ChatGateway extends TableGateway{
 	private String tableName = "chat_tbl";
+	
 	public ChatGateway(Connection con, String tableName) {
 		super(con, "chat_tbl");
 		// TODO Auto-generated constructor stub
