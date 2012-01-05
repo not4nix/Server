@@ -7,8 +7,6 @@ import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import com.java.server.utils.MapWrapper;
-
 public class TableGateway {
 	protected Connection con;
 	private String _tableName;
@@ -42,11 +40,11 @@ public class TableGateway {
 		return rs;
 	}
 	
-	public synchronized void insert(MapWrapper map) throws SQLException{
+	public synchronized void insert() throws SQLException{
 		
 	}
 	
-	public synchronized void update(MapWrapper map, String value, String field) throws SQLException{
+	public synchronized void update() throws SQLException{
 		
 	}
 }
