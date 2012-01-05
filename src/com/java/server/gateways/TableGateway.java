@@ -7,21 +7,21 @@ import java.sql.Statement;
 import java.util.Map;
 
 public class TableGateway {
-	protected Connection con;
+	protected Connection conn;
 	private String _tableName;
 	private ResultSet rs;
 	private Statement st;
 	private String sql;
 	
-	public TableGateway(Connection con, String tableName){
-		this.con = con;
+	public TableGateway(Connection conn, String tableName){
+		this.conn = conn;
 		_tableName = tableName;
 	}
 	
 	public synchronized void delete(int id){
 		//DELETE sample: DELETE FROM `users_tbl` WHERE `id` = 5;
 		try {
-			st = con.createStatement();
+			st = conn.createStatement();
 			st.executeUpdate("DELETE FROM "+_tableName+"WHERE `id` ="+id);
 		}
 		catch(SQLException ex){
@@ -32,7 +32,7 @@ public class TableGateway {
 	public synchronized ResultSet select(){
 		//Sql sample: SELECT * FROM `users_tbl`
 		try {
-			st = con.createStatement();
+			st = conn.createStatement();
 			st.executeQuery("SELECT * FROM "+_tableName);
 		}
 		catch(SQLException ex){
@@ -43,7 +43,7 @@ public class TableGateway {
 	
 	public synchronized void insert(Map<String,String> map) throws SQLException{
 		//INSERT INTO `users_tbl`(`login`,`password`,`email`) VALUES('user','qwerty12345','user@user.com');
-		st = con.createStatement();
+		st = conn.createStatement();
 		String field = "(";
 		String value = " VALUES(";
 		for(Map.Entry<String, String> thispair : map.entrySet()){
@@ -58,9 +58,10 @@ public class TableGateway {
 		String SQL = "INSERT INTO "+_tableName+""+field+value+"";
 		st.executeUpdate(SQL);
 	}
+	
 	public synchronized void update(Map<String,String> m, String field, Object value) throws SQLException{
 		//UPDATE `users_tbl` SET `login`='nick', `password`='qwerty12345', `email`='user@mail.com' WHERE `userId`=2;
-		st = con.createStatement();
+		st = conn.createStatement();
 		sql = "UPDATE "+_tableName+" SET ";
 		for(Map.Entry<String, String> thispair : m.entrySet()){
 			//building sql

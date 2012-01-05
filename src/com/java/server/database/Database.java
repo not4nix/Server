@@ -21,7 +21,7 @@ public class Database {
 	private String user = "yao";
 	//database user password
 	private String password = "261594873aa";
-	private Connection con;
+	private Connection conn;
 	
 	
 	
@@ -61,7 +61,7 @@ public class Database {
 //	}
 	
 	public Connection getConnection(){
-		return con;
+		return conn;
 	}
 	
 	public synchronized Connection connect(){
@@ -75,7 +75,7 @@ public class Database {
 			}
 			try {
 //				auth();
-				con = DriverManager.getConnection(Db, user, password);
+				conn = DriverManager.getConnection(Db, user, password);
 			}
 			catch(SQLException ex){
 				Logger.getLogger(Database.class.getName()).log(Level.SEVERE,null,ex);
@@ -84,7 +84,7 @@ public class Database {
 		catch(Exception ex){
 			Logger.getLogger(Database.class.getName()).log(Level.WARNING,null,ex);
 		}
-		return con;
+		return conn;
 	}
 	
 //	private class ConnectionPool {

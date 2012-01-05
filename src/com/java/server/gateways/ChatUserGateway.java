@@ -8,19 +8,19 @@ import java.util.logging.Logger;
 
 public class ChatUserGateway extends TableGateway{
 	private String tableName = "chatuser_tbl";
-	public ChatUserGateway(Connection con, String tableName) {
-		super(con, "chatuser_tbl");
+	public ChatUserGateway(Connection conn) {
+		super(conn, "chatuser_tbl");
 		// TODO Auto-generated constructor stub
 	}
 
 	public synchronized void kickOutTheRoom(int userId, int chatId){
 		try {
-			Statement stmt = con.createStatement();
-			String sql = "DELETE FROM "+tableName+"WHERE `userId`='"+userId+"' AND `chatId`='"+chatId+"'";
+			Statement stmt = conn.createStatement();
+			String sql = "DELETE FROM "+tableName+"WHERE `userId`="+userId+" AND `chatRoomId`="+chatId+"";
 			stmt.executeUpdate(sql);
 		}
 		catch(SQLException ex){
-			Logger.getLogger(ChatUserGateway.class.getName()).log(Level.SEVERE,null,ex);
+			ex.printStackTrace();
 		}
 	}
 }

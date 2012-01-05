@@ -32,6 +32,18 @@ public class Message {
 		this.postdate = pt.format(cal.getTime());
 	}
 	
+    public ConcurrentHashMap<String,String> toHash(){
+		ConcurrentHashMap<String,String> hash = new ConcurrentHashMap<String,String>();
+		hash.put("messageBody", this.messageBody);
+		hash.put("messageType", this.messageType);
+		hash.put("recipient", this.recipient);
+		hash.put("author", this.author);
+		hash.put("postdate", this.postdate);
+		hash.put("messageId", Integer.toString(this.messageId));
+		hash.put("chatRoomId", Integer.toString(this.chatRoomId));
+		return hash;
+	}
+	
 	/**
 	 * Getters and setters
 	 */

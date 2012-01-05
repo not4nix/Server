@@ -12,15 +12,16 @@ import com.java.server.utils.ResponseCodes;
 public class UserGateway extends TableGateway{
 	private String tableName = "users_tbl";
 	private String sql;
-	public UserGateway(Connection con) {
-		super(con, "users_tbl");
+	private ResultSet rs;
+	public UserGateway(Connection conn) {
+		super(conn, "users_tbl");
 		// TODO Auto-generated constructor stub
 	}
 	
-	public synchronized boolean validateCredentials(String password){
+	public synchronized boolean validateCredentials(String login, String password){
 		try {
-			Statement stmt = con.createStatement();
-			sql = "SELECT `login` FROM "+tableName+"WHERE `password` ='"+password+"'";
+			Statement stmt = conn.createStatement();
+			sql = "SELECT `login` FROM "+tableName+"WHERE `login` ='"+login+"' AND `password` ='"+password+"'";
 			ResultSet rs = stmt.executeQuery(sql);
 			while(rs.next()){
 				return true;
@@ -35,23 +36,11 @@ public class UserGateway extends TableGateway{
 		return false;
 	}
 	
-	public synchronized String createUser(String login, String password, String email){
-		try {
-			Statement stmt = con.createStatement();
-			sql = "INSERT INTO"+tableName+"(`login`,`password`,`email`) VALUES('"+login+"','"+password+"','"+email+"')";
-			stmt.executeUpdate(sql);
-		}
-		catch(SQLException ex){
-			Logger.getLogger(UserGateway.class.getName()).log(Level.SEVERE,null,ex);
-		}
-		return ResponseCodes.UserAdded.toString();
-	}
-	
 	public synchronized ResultSet findAllUsers(){
 		try {
-			Statement stmt = con.createStatement();
+			Statement stmt = conn.createStatement();
 			sql = "SELECT * FROM "+tableName;
-			ResultSet rs = stmt.executeQuery(sql);
+			rs = stmt.executeQuery(sql);
 		}
 		catch(SQLException ex){
 			Logger.getLogger(UserGateway.class.getName()).log(Level.SEVERE,null,ex);
@@ -59,15 +48,30 @@ public class UserGateway extends TableGateway{
 		return null;
 	}
 	
-	public synchronized String deleteUser(int userId){
+	public synchronized String findUser(String email, int id){
 		try {
-			Statement stmt = con.createStatement();
+			Statement stmt = conn.createStatement();
+			sql = "SELECT `login` FROM "+tableName+"WHERE `email` ='"+email+"' AND `id` ="+id+"";
+			rs = stmt.executeQuery(sql);
+			while(rs.next()){
+				String login = rs.getString("login");
+			}
+		}
+		catch(SQLException ex){
+			ex.printStackTrace();
+		}
+		return null;
+	}
+	
+	public synchronized int deleteUser(int userId){
+		try {
+			Statement stmt = conn.createStatement();
 			sql = "DELETE FROM "+tableName+"WHERE `userId`"+userId;
 			stmt.executeUpdate(sql);
 		}
 		catch(SQLException ex){
 			Logger.getLogger(UserGateway.class.getName()).log(Level.SEVERE,null,ex);
 		}
-		return ResponseCodes.UserDeleted.toString();
+		return userId;
 	}
 }

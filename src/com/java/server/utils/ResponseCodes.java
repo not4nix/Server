@@ -31,6 +31,7 @@ public enum ResponseCodes implements Serializable{
     MessageSentIntoChat,
     MessageSentToUser,
     MessageAdded,
+    MessageRetrieved,
     MessageUpdated,
     MessageDeleted,
     BadRequest,

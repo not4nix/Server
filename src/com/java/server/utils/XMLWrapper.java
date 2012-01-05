@@ -12,6 +12,7 @@ import java.io.UnsupportedEncodingException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -390,7 +391,7 @@ public class XMLWrapper {
 	 * @param src source
 	 * @throws UnsupportedEncodingException
 	 */
-	public void parse(HashMap<String, String> map, String src) throws UnsupportedEncodingException{
+	public void parse(ConcurrentHashMap<String, String> map, String src) throws UnsupportedEncodingException{
 		/**
 		 * Defines a factory API that enables applications to obtain a parser that produces DOM 
 		 * object trees from XML documents.

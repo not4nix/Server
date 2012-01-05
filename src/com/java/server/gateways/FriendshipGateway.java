@@ -9,14 +9,14 @@ import java.util.logging.Logger;
 
 public class FriendshipGateway extends TableGateway{
 	private String tableName = "friendship_tbl";
-	public FriendshipGateway(Connection con, String tableName) {
-		super(con, "friendship_tbl");
+	public FriendshipGateway(Connection conn) {
+		super(conn, "friendship_tbl");
 		// TODO Auto-generated constructor stub
 	}
 	
 	public synchronized ResultSet findAllFriendsOfInitiator(String initiatorName){
 		try {
-			Statement st = con.createStatement();
+			Statement st = conn.createStatement();
 			String sql = "SELECT * FROM "+tableName+"WHERE `initiatorName`='"+initiatorName+"'";
 			ResultSet rs = st.executeQuery(sql);
 			while(rs.next()){
@@ -31,7 +31,7 @@ public class FriendshipGateway extends TableGateway{
 	
 	public synchronized void addFriend(String friendName, String initiatorName){
 		try {
-			Statement st = con.createStatement();
+			Statement st = conn.createStatement();
 			String sql = "INSERT INTO "+tableName+"(`friendName`,`initiatorName`) VALUES('"+friendName+"','"+initiatorName+"')";
 			st.executeUpdate(sql);
 		}
@@ -42,7 +42,7 @@ public class FriendshipGateway extends TableGateway{
 	
 	public synchronized void deleteFriend(int friendId){
 		try {
-			Statement st = con.createStatement();
+			Statement st = conn.createStatement();
 			String sql = "DELETE FROM "+tableName+"WHERE `friendId` = "+friendId;
 			st.executeUpdate(sql);
 		}
