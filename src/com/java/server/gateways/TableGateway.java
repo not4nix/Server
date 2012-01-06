@@ -4,71 +4,85 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.HashMap;
+import java.util.Hashtable;
 import java.util.Map;
+import java.util.TreeMap;
 
-public class TableGateway {
-	protected Connection conn;
-	private String _tableName;
+public abstract class TableGateway {
+	protected Connection con;
+	private String tableName;
 	private ResultSet rs;
 	private Statement st;
 	private String sql;
 	
-	public TableGateway(Connection conn, String tableName){
-		this.conn = conn;
-		_tableName = tableName;
+	public TableGateway(Connection conn, String table){
+		this.con = conn;
+		tableName = table;
 	}
 	
 	public synchronized void delete(int id){
-		//DELETE sample: DELETE FROM `users_tbl` WHERE `id` = 5;
+		/**
+		 * sql template 
+		 * DELETE FROM `users_tbl` WHERE `id`=2
+		 */
 		try {
-			st = conn.createStatement();
-			st.executeUpdate("DELETE FROM "+_tableName+"WHERE `id` ="+id);
+			st = con.createStatement();
+			st.executeUpdate("DELETE FROM "+tableName+"WHERE `id`="+id+"");
 		}
 		catch(SQLException ex){
-			
+			//TODO:logging
 		}
 	}
 	
 	public synchronized ResultSet select(){
-		//Sql sample: SELECT * FROM `users_tbl`
+		/**
+		 * sql template
+		 * SELECT * FROM `users_tbl`
+		 */
 		try {
-			st = conn.createStatement();
-			st.executeQuery("SELECT * FROM "+_tableName);
+			st = con.createStatement();
+			st.executeQuery("SELECT * FROM "+tableName);
 		}
 		catch(SQLException ex){
-			
+			//TODO: logging
 		}
-		return rs;
+		return null;
 	}
 	
-	public synchronized void insert(Map<String,String> map) throws SQLException{
-		//INSERT INTO `users_tbl`(`login`,`password`,`email`) VALUES('user','qwerty12345','user@user.com');
-		st = conn.createStatement();
-		String field = "(";
-		String value = " VALUES(";
-		for(Map.Entry<String, String> thispair : map.entrySet()){
-			//building sql
-			field += "`" + thispair.getKey() + "`,";
-			value += "'" + thispair.getValue() + "',";
+	public synchronized void insert(Map<String,String> map, String field, Object value){
+		try {
+			st = con.createStatement();
+			//fields are fields in database table
+			String fields = "(";
+			//inserted value
+			String values = " VALUE(";
+			for(Map.Entry<String, String> thispairs : map.entrySet()){
+				fields += "`" + thispairs.getKey() + "`,";
+				values += "'" + thispairs.getValue() + "',";
+			}
+			fields = fields.substring(0,fields.length()-1);
+			fields += ")";
+			values = values.substring(0,values.length()-1);
+			values += ")";
+			st.executeUpdate("INSERT INTO "+tableName+""+field+value+"");
 		}
-		field = field.substring(0,field.length()-1);
-		field += ")";
-		value = value.substring(0,value.length()-1);
-		value += ")";
-		String SQL = "INSERT INTO "+_tableName+""+field+value+"";
-		st.executeUpdate(SQL);
+		catch(SQLException ex){
+			//TODO: Logging
+		}
 	}
 	
-	public synchronized void update(Map<String,String> m, String field, Object value) throws SQLException{
-		//UPDATE `users_tbl` SET `login`='nick', `password`='qwerty12345', `email`='user@mail.com' WHERE `userId`=2;
-		st = conn.createStatement();
-		sql = "UPDATE "+_tableName+" SET ";
-		for(Map.Entry<String, String> thispair : m.entrySet()){
-			//building sql
-			sql = "`" + thispair.getKey() + "`=";
-			sql = "'" + thispair.getValue() + "',";
+	public synchronized void update(Map<String,String> map, String field, Object value){
+		try {
+			st = con.createStatement();
+			for(Map.Entry<String, String> thispairs : map.entrySet()){
+				sql = "`" + thispairs.getKey() + "`=";
+				sql = "'" + thispairs.getValue() + "',";
+			}
+			st.executeUpdate("UPDATE "+tableName+ "SET " + "WHERE `"+field+"`='"+value+"'");
 		}
-		sql = "WHERE `"+field+"`='"+value+"'";
-		st.executeUpdate(sql);
+		catch(SQLException ex){
+			//TODO: Logging
+		}
 	}
 }

@@ -1,4 +1,4 @@
-package com.java.server.utils;
+package com.java.server.util;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -446,4 +446,5 @@ public class XMLWrapper {
 		}
 	}
 }
+
 

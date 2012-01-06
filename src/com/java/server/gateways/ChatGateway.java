@@ -4,29 +4,70 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class ChatGateway extends TableGateway{
-	private String tableName = "chat_tbl";
-	private Statement stmt;
+
+	String tableName = "chat_tbl";
 	public ChatGateway(Connection conn) {
 		super(conn, "chat_tbl");
 		// TODO Auto-generated constructor stub
 	}
 	
-	public synchronized ResultSet findAllUsersInRoom(int id){
+	public synchronized ResultSet findAllRooms(){
 		try {
-			stmt = conn.createStatement();
-			String sql = "SELECT users_tbl.id,users_tbl.login FROM chat_tbl,chatuser_tbl,users_tbl"+
-			             "WHERE chat_tbl.id = chatuser_tbl.id AND" +
-					     "chatuser_tbl.users_tbl.id = users_tbl.id AND "+
-			             "chat_tbl.id = "+id+"";
-			stmt.executeQuery(sql);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			Statement stmt = con.createStatement();
+			String sql = "SELECT * FROM "+tableName+"";
+			ResultSet rs = stmt.executeQuery(sql);
+		}
+		catch(SQLException ex){
+			//TODO: logging
 		}
 		return null;
 	}
+	
+	public synchronized ResultSet findConcreteRoom(String roomname){
+		try {
+			Statement stmt = con.createStatement();
+			String sql = "SELECT * FROM "+tableName+"WHERE `roomname`='"+roomname+"'";
+			ResultSet rs = stmt.executeQuery(sql);
+		}
+		catch(SQLException ex){
+			//TODO: logging
+		}
+		return null;
+	}
+	
+	public synchronized ResultSet findRoomById(int roomId){
+		try {
+			Statement stmt = con.createStatement();
+			String sql = "SELECT * FROM "+tableName+"WHERE `roomId`="+roomId+"";
+			ResultSet rs = stmt.executeQuery(sql);
+		}
+		catch(SQLException ex){
+			//TODO: logging
+		}
+		return null;
+	}
+	
+	public synchronized void deleteAllRooms(){
+		try {
+			Statement stmt = con.createStatement();
+			String sql = "DELETE FROM "+tableName+"";
+			stmt.executeUpdate(sql);
+		}
+		catch(SQLException ex){
+			//TODO: logging
+		}
+	}
+	
+	public synchronized void deleteConcreteRoom(int roomId){
+		try {
+			Statement stmt = con.createStatement();
+			stmt.executeUpdate("DELETE FROM "+tableName+"WHERE `roomId`="+roomId+"");
+		}
+		catch(SQLException ex){
+			//TODO: logging
+		}
+	}
+
 }

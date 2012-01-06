@@ -4,38 +4,81 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 
 public class MessageGateway extends TableGateway{
-	private String tableName = "messages_tbl";
+
+	String tableName = "message_tbl";
 	public MessageGateway(Connection conn) {
-		super(conn, "messages_tbl");
+		super(conn, "message_tbl");
 		// TODO Auto-generated constructor stub
 	}
 	
-	public synchronized ResultSet getMessagesFromRoom(int id){
+	public synchronized ResultSet findAllMessages(){
 		try {
-			Statement st = conn.createStatement();
-			String sql = "SELECT * FROM "+tableName+"WHERE `chatRoomId` ="+id+"";
-			st.executeQuery(sql);
+			Statement stmt = con.createStatement();
+			ResultSet rs = stmt.executeQuery("SELECT * FROM "+tableName+"");
 		}
 		catch(SQLException ex){
-			ex.printStackTrace();
+			//TODO: logging
 		}
 		return null;
 	}
 	
-	public synchronized ResultSet getRecentMessagesFromRoom(int id, String postdate){
+	public synchronized ResultSet findAllMessagesByAuthor(String author){
 		try {
-			Statement st = conn.createStatement();
-			String sql = "SELECT * FROM "+tableName+"WHERE `chatRoomId` ="+id+" AND `postdate`='"+postdate+"'";
-			st.executeQuery(sql);
+			Statement stmt = con.createStatement();
+			String sql = "SELECT * FROM "+tableName+"WHERE `author`='"+author+"'";
+			ResultSet rs = stmt.executeQuery(sql);
 		}
 		catch(SQLException ex){
-			ex.printStackTrace();
+			//TODO:logging
 		}
 		return null;
+	}
+	
+	public synchronized ResultSet findAllRecentMessages(String postdate){
+		try {
+			Statement stmt = con.createStatement();
+			String sql = "SELECT `messageBody` FROM "+tableName+"WHERE `postdate='"+postdate+"'";
+			ResultSet rs = stmt.executeQuery(sql);
+		}
+		catch(SQLException ex){
+			//TODO: logging
+		}
+		return null;
+	}
+	
+	public synchronized ResultSet findAllRecipients(String recipient){
+		try {
+			Statement stmt = con.createStatement();
+			String sql = "SELECT '"+recipient+"' FROM "+tableName+"";
+			ResultSet rs = stmt.executeQuery(sql);
+		}
+		catch(SQLException ex){
+			//TODO: logging
+		}
+		return null;
+	}
+	
+	public synchronized void deleteAll(){
+		try {
+			Statement stmt = con.createStatement();
+			String sql = "DELETE FROM "+tableName+"";
+			stmt.executeUpdate(sql);
+		}
+		catch(SQLException ex){
+			//TODO: logging
+		}
+	}
+	
+	public synchronized void deleteMessageById(int messageId){
+		try {
+			Statement stmt = con.createStatement();
+			String sql = "DELETE FROM "+tableName+"WHERE `messageId`="+messageId+"";
+			stmt.executeUpdate(sql);
+		}
+		catch(SQLException ex){
+			//TODO: logging
+		}
 	}
 }
