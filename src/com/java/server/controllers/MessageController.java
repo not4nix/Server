@@ -22,7 +22,7 @@ public class MessageController {
 		
 	}
 	
-	public void getMessagesByDate(HTTPRequest request, HTTPResponse response){
+	public synchronized void getMessagesByDate(HTTPRequest request, HTTPResponse response){
 		try {
 			Connection con = Database.getInstance().getConnection();
 			String httpRequest = request.getBody();
@@ -40,7 +40,7 @@ public class MessageController {
 		}
 	}
 	
-	public void getMessagesOfAuthor(HTTPRequest request, HTTPResponse response){
+	public synchronized void getMessagesOfAuthor(HTTPRequest request, HTTPResponse response){
 		try {
 			Connection con = Database.getInstance().getConnection();
 			String httpRequest = request.getBody();
@@ -58,7 +58,7 @@ public class MessageController {
 		}
 	}
 	
-    public void deleteOldMessages(HTTPRequest request, HTTPResponse response){
+    public synchronized void deleteOldMessages(HTTPRequest request, HTTPResponse response){
 		try {
 			Connection con = Database.getInstance().getConnection();
 			String httpRequest = request.getBody();
@@ -72,7 +72,7 @@ public class MessageController {
 		}
 	}
     
-	public void doSentMessageToChat(HTTPRequest request, HTTPResponse response){
+	public synchronized void doSentMessageToChat(HTTPRequest request, HTTPResponse response){
 		try {
 			Connection con = Database.getInstance().getConnection();
 			String httpRequest = request.getBody();
@@ -89,5 +89,5 @@ public class MessageController {
 			//TODO: logging
 		}
 	}
-	public void doSentPrivateMessage(HTTPRequest request, HTTPResponse response){}
+	public synchronized void doSentPrivateMessage(HTTPRequest request, HTTPResponse response){}
 }
