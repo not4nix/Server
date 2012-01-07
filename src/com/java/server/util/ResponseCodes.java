@@ -21,6 +21,7 @@ public enum ResponseCodes implements Serializable{
 	FriendshipCreated,
 	FriendshipRefused,
 	FriendshipTerminated,
+	FriendFound,
 	//messages response codes
 	MessageFound,
 	MessageSent,
