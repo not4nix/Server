@@ -71,10 +71,10 @@ public class MessageGateway extends TableGateway{
 		}
 	}
 	
-	public synchronized void deleteMessageById(int messageId){
+	public synchronized void deleteMessageByDate(String postdate){
 		try {
 			Statement stmt = con.createStatement();
-			String sql = "DELETE FROM "+tableName+"WHERE `messageId`="+messageId+"";
+			String sql = "DELETE FROM "+tableName+"WHERE `postdate`='"+postdate+"'";
 			stmt.executeUpdate(sql);
 		}
 		catch(SQLException ex){
