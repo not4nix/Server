@@ -5,6 +5,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import com.java.server.util.logging.Log;
+
 public class UserGateway extends TableGateway{
 
 	String tableName = "user_tbl";
@@ -19,7 +21,7 @@ public class UserGateway extends TableGateway{
 			ResultSet rs = st.executeQuery("SELECT * FROM "+tableName+"WHERE `userId`="+id+"");
 		}
 		catch(SQLException ex){
-			//TODO: Logging
+			Log.writeToFile("Exception occured " + ex.toString());
 		}
 		return null;
 	}
@@ -30,7 +32,7 @@ public class UserGateway extends TableGateway{
 			ResultSet rs = st.executeQuery("SELECT * FROM "+tableName+"WHERE `login`='"+login+"'");
 		}
 		catch(SQLException ex){
-			//TODO: Logging
+			Log.writeToFile("Exception occured " + ex.toString());
 		}
 		return null;
 	}
@@ -41,7 +43,7 @@ public class UserGateway extends TableGateway{
 			st.executeUpdate("DELETE FROM "+tableName+"WHERE `userId`="+id+"");
 		}
 		catch(SQLException ex){
-			//TODO: Logging
+			Log.writeToFile("Exception occured " + ex.toString());
 		}
 	}
 	
@@ -51,7 +53,7 @@ public class UserGateway extends TableGateway{
 			st.executeUpdate("DELETE FROM "+tableName);
 		}
 		catch(SQLException ex){
-			//TODO: Logging
+			Log.writeToFile("Exception occured " + ex.toString());
 		}
 	}
 	
@@ -68,7 +70,7 @@ public class UserGateway extends TableGateway{
 			}
 		}
 		catch(SQLException ex){
-			//TODO:logging
+			Log.writeToFile("Exception occured " + ex.toString());
 		}
 		return false;
 	}
@@ -80,7 +82,7 @@ public class UserGateway extends TableGateway{
 			stmt.executeUpdate(sql);
 		}
 		catch(SQLException ex){
-			//TODO: Logging
+			Log.writeToFile("Exception occured " + ex.toString());
 		}
 	}
 	
@@ -91,7 +93,7 @@ public class UserGateway extends TableGateway{
 			stmt.executeUpdate(sql);
 		}
 		catch(SQLException ex){
-			//TODO: logging
+			Log.writeToFile("Exception occured " + ex.toString());
 		}
 	}
 }

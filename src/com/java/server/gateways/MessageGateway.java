@@ -5,35 +5,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import com.java.server.util.logging.Log;
+
 public class MessageGateway extends TableGateway{
 
 	String tableName = "message_tbl";
 	public MessageGateway(Connection conn) {
 		super(conn, "message_tbl");
 		// TODO Auto-generated constructor stub
-	}
-	
-	public synchronized ResultSet findAllMessages(){
-		try {
-			Statement stmt = con.createStatement();
-			ResultSet rs = stmt.executeQuery("SELECT * FROM "+tableName+"");
-		}
-		catch(SQLException ex){
-			//TODO: logging
-		}
-		return null;
-	}
-	
-	public synchronized ResultSet findAllMessagesByAuthor(String author){
-		try {
-			Statement stmt = con.createStatement();
-			String sql = "SELECT * FROM "+tableName+"WHERE `author`='"+author+"'";
-			ResultSet rs = stmt.executeQuery(sql);
-		}
-		catch(SQLException ex){
-			//TODO:logging
-		}
-		return null;
 	}
 	
 	public synchronized ResultSet findAllRecentMessages(String postdate){
@@ -43,22 +22,11 @@ public class MessageGateway extends TableGateway{
 			ResultSet rs = stmt.executeQuery(sql);
 		}
 		catch(SQLException ex){
-			//TODO: logging
+			Log.writeToFile("Exception occurred " + ex.toString());
 		}
 		return null;
 	}
 	
-	public synchronized ResultSet findAllRecipients(String recipient){
-		try {
-			Statement stmt = con.createStatement();
-			String sql = "SELECT '"+recipient+"' FROM "+tableName+"";
-			ResultSet rs = stmt.executeQuery(sql);
-		}
-		catch(SQLException ex){
-			//TODO: logging
-		}
-		return null;
-	}
 	
 	public synchronized void deleteAll(){
 		try {
@@ -67,7 +35,7 @@ public class MessageGateway extends TableGateway{
 			stmt.executeUpdate(sql);
 		}
 		catch(SQLException ex){
-			//TODO: logging
+			Log.writeToFile("Exception occurred " + ex.toString());
 		}
 	}
 	
@@ -78,7 +46,18 @@ public class MessageGateway extends TableGateway{
 			stmt.executeUpdate(sql);
 		}
 		catch(SQLException ex){
-			//TODO: logging
+			Log.writeToFile("Exception occurred " + ex.toString());
+		}
+	}
+	
+	public synchronized void getMessageFromRoom(int id){
+		try {
+			Statement stmt = con.createStatement();
+			String sql = "SELECT FROM "+tableName+"WHERE `chatRoomId` ="+id+"";
+			ResultSet rs = stmt.executeQuery(sql);
+		}
+		catch(SQLException ex){
+			Log.writeToFile("Exception occured " + ex.toString());
 		}
 	}
 }

@@ -3,6 +3,7 @@ package com.java.server.controllers;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.logging.LogManager;
 
 import com.java.server.database.Database;
 import com.java.server.gateways.ChatGateway;
@@ -24,6 +25,7 @@ public class UserController {
 	
 	public synchronized void getUserById(HTTPRequest request, HTTPResponse response){
 		try {
+			LogManager.getLogManager().readConfiguration(UserController.class.getResourceAsStream("/logging.properties"));
 			Connection conn = Database.getInstance().getConnection();
 			//get body of http request
 			String requestBody = request.getBody();
@@ -35,11 +37,11 @@ public class UserController {
 			String answer = XMLWrapper.getInstance().createXDocument("Users", "user", users);
 			//form body of xml response
 			response.setBody("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><user><password><email><userId>" +
-					""+users+"</user></password></email></id>");
+					""+users+"</user></password></email></userId>");
 			response.setResponseCode(ResponseCodes.UserFound.toString());
 		}
 		catch(Exception ex){
-			//TODO: logging
+			ex.toString();
 		}
 	}
 	
@@ -58,7 +60,7 @@ public class UserController {
 			String answer = XMLWrapper.getInstance().createXDocument("Users", "user", u);
 			//form body of xml response
 			response.setBody("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><user><password><email><userId>" +
-					""+u+"</user></password></email></id>");
+					""+u+"</user></password></email></userId>");
 			response.setResponseCode(ResponseCodes.UserFound.toString());
 		}
 		catch(Exception ex){

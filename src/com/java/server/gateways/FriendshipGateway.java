@@ -5,6 +5,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import com.java.server.util.logging.Log;
+
 public class FriendshipGateway extends TableGateway{
 
 	String tableName = "friends_tbl";
@@ -19,7 +21,7 @@ public class FriendshipGateway extends TableGateway{
 			ResultSet rs = stmt.executeQuery("SELECT `friendName` FROM "+tableName+" WHERE `friendshipId` ="+friendshipId+"");
 		}
 		catch(SQLException ex){
-			//TODO: logging
+			Log.writeToFile("Exception occured " + ex.toString());
 		}
 		return null;
 	}
@@ -31,7 +33,7 @@ public class FriendshipGateway extends TableGateway{
 					"VALUES('"+friendName+"','"+initiatorName+"'");
 		}
 		catch(SQLException ex){
-			//TODO: logging
+			Log.writeToFile("Exception occured " + ex.toString());
 		}
 	}
 	public synchronized ResultSet findAllFriendsOfInitiator(String initiatorName){
@@ -40,7 +42,7 @@ public class FriendshipGateway extends TableGateway{
 			ResultSet rs = stmt.executeQuery("SELECT * FROM "+tableName+"WHERE `initiatorName`='"+initiatorName+"'");
 		}
 		catch(SQLException ex){
-			//TODO: logging
+			Log.writeToFile("Exception occured " + ex.toString());
 		}
 		return null;
 	}
@@ -52,7 +54,7 @@ public class FriendshipGateway extends TableGateway{
 			stmt.executeUpdate(sql);
 		}
 		catch(SQLException ex){
-			//TODO: logging
+			Log.writeToFile("Exception occured " + ex.toString());
 		}
 	}
 	
@@ -63,7 +65,7 @@ public class FriendshipGateway extends TableGateway{
 			stmt.executeUpdate(sql);
 		}
 		catch(SQLException ex){
-			//TODO: logging
+			Log.writeToFile("Exception occured " + ex.toString());
 		}
 	}
 }

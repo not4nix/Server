@@ -9,13 +9,14 @@ import java.util.Hashtable;
 import java.util.Map;
 import java.util.TreeMap;
 
+import com.java.server.util.logging.Log;
+
 public abstract class TableGateway {
 	protected Connection con;
 	private String tableName;
 	private ResultSet rs;
 	private Statement st;
 	private String sql;
-	
 	public TableGateway(Connection conn, String table){
 		this.con = conn;
 		tableName = table;
@@ -31,7 +32,7 @@ public abstract class TableGateway {
 			st.executeUpdate("DELETE FROM "+tableName+"WHERE `id`="+id+"");
 		}
 		catch(SQLException ex){
-			//TODO:logging
+			Log.writeToFile("Exception occured " + ex.toString());
 		}
 	}
 	
@@ -45,7 +46,7 @@ public abstract class TableGateway {
 			st.executeQuery("SELECT * FROM "+tableName);
 		}
 		catch(SQLException ex){
-			//TODO: logging
+			Log.writeToFile("Exception occured " + ex.toString());
 		}
 		return null;
 	}
@@ -68,7 +69,7 @@ public abstract class TableGateway {
 			st.executeUpdate("INSERT INTO "+tableName+""+field+value+"");
 		}
 		catch(SQLException ex){
-			//TODO: Logging
+			Log.writeToFile("Exception occured " + ex.toString());
 		}
 	}
 	
@@ -82,7 +83,7 @@ public abstract class TableGateway {
 			st.executeUpdate("UPDATE "+tableName+ "SET " + "WHERE `"+field+"`='"+value+"'");
 		}
 		catch(SQLException ex){
-			//TODO: Logging
+			Log.writeToFile("Exception occured " + ex.toString());
 		}
 	}
 }

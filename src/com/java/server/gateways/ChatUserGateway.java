@@ -5,6 +5,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import com.java.server.util.logging.Log;
+
 public class ChatUserGateway extends TableGateway{
 	
     String tableName = "chatuser_tbl";
@@ -20,7 +22,7 @@ public class ChatUserGateway extends TableGateway{
 			ResultSet rs = stmt.executeQuery(sql);
 		}
 		catch(SQLException ex){
-			//TODO: logging
+			Log.writeToFile("Exception occured " + ex.toString());
 		}
 		return null;
 	}
@@ -32,7 +34,7 @@ public class ChatUserGateway extends TableGateway{
 			stmt.executeUpdate(sql);
 		}
 		catch(SQLException ex){
-			//TODO: logging
+			Log.writeToFile("Exception occured " + ex.toString());
 		}
 	}
 }

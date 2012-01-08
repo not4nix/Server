@@ -5,6 +5,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import com.java.server.util.logging.Log;
+
 public class ChatGateway extends TableGateway{
 
 	String tableName = "chat_tbl";
@@ -20,7 +22,19 @@ public class ChatGateway extends TableGateway{
 			ResultSet rs = stmt.executeQuery(sql);
 		}
 		catch(SQLException ex){
-			//TODO: logging
+			Log.writeToFile("Exception occured " + ex.toString());
+		}
+		return null;
+	}
+	
+	public synchronized ResultSet findRoomCreator(String roomname, String creatorName){
+		try{
+			Statement stmt = con.createStatement();
+			String sql = "SELECT '"+creatorName+"' FROM "+tableName+" WHERE `roomname` ='"+roomname+"'";
+			ResultSet rs = stmt.executeQuery(sql);
+		}
+		catch(SQLException ex){
+			Log.writeToFile("Exception occured " + ex.toString());
 		}
 		return null;
 	}
@@ -32,7 +46,7 @@ public class ChatGateway extends TableGateway{
 			ResultSet rs = stmt.executeQuery(sql);
 		}
 		catch(SQLException ex){
-			//TODO: logging
+			Log.writeToFile("Exception occured " + ex.toString());
 		}
 		return null;
 	}
@@ -44,7 +58,7 @@ public class ChatGateway extends TableGateway{
 			ResultSet rs = stmt.executeQuery(sql);
 		}
 		catch(SQLException ex){
-			//TODO: logging
+			Log.writeToFile("Exception occured " + ex.toString());
 		}
 		return null;
 	}
@@ -56,7 +70,7 @@ public class ChatGateway extends TableGateway{
 			stmt.executeUpdate(sql);
 		}
 		catch(SQLException ex){
-			//TODO: logging
+			Log.writeToFile("Exception occured " + ex.toString());
 		}
 	}
 	
@@ -66,8 +80,7 @@ public class ChatGateway extends TableGateway{
 			stmt.executeUpdate("DELETE FROM "+tableName+"WHERE `roomId`="+roomId+"");
 		}
 		catch(SQLException ex){
-			//TODO: logging
+			Log.writeToFile("Exception occured " + ex.toString());
 		}
 	}
-
 }

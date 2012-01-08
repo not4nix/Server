@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 
 import com.java.server.interfaces.IDbConnectionProps;
+import com.java.server.util.logging.Log;
 
 public class Database implements IDbConnectionProps{
 	private Connection conn;
@@ -34,7 +35,7 @@ public class Database implements IDbConnectionProps{
 			conn = DriverManager.getConnection(DB,User,Password);
 		}
 		catch(Exception ex){
-			
+			Log.writeToFile("Exception occured " + ex.toString());
 		}
 		return conn;
 	}
