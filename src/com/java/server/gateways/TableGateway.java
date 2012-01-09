@@ -51,7 +51,7 @@ public abstract class TableGateway {
 		return null;
 	}
 	
-	public synchronized void insert(Map<String,String> map, String field, Object value){
+	public synchronized void insert(Map<String,String> map){
 		try {
 			st = con.createStatement();
 			//fields are fields in database table
@@ -66,7 +66,7 @@ public abstract class TableGateway {
 			fields += ")";
 			values = values.substring(0,values.length()-1);
 			values += ")";
-			st.executeUpdate("INSERT INTO "+tableName+""+field+value+"");
+			st.executeUpdate("INSERT INTO "+tableName+""+fields+values+"");
 		}
 		catch(SQLException ex){
 			Log.writeToFile("Exception occured " + ex.toString());

@@ -40,23 +40,6 @@ public class MessageController {
 		}
 	}
 	
-	public synchronized void getMessagesOfAuthor(HTTPRequest request, HTTPResponse response){
-		try {
-			Connection con = Database.getInstance().getConnection();
-			String httpRequest = request.getBody();
-			XMLWrapper.getInstance().parse(map, httpRequest);
-			MessageGateway gateway = new MessageGateway(con);
-			ResultSet mes = gateway.findAllMessagesByAuthor(map.get("author"));
-			String answer = XMLWrapper.getInstance().createXDocument("Messages", "authorMessage", mes);
-			response.setBody("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><messageBody><messageType>" +
-					"<postdate><authorName><recipient><messageId><chatRoomId>"+mes+"</messageBody></messageType>" +
-					"</postdate></authorName></recipient></messageId></chatRoomId>");
-			response.setResponseCode(ResponseCodes.MessageFound.toString());
-		}
-		catch(Exception ex){
-			//TODO: logging
-		}
-	}
 	
     public synchronized void deleteOldMessages(HTTPRequest request, HTTPResponse response){
 		try {

@@ -3,7 +3,6 @@ package com.java.server.controllers;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.logging.LogManager;
 
 import com.java.server.database.Database;
 import com.java.server.gateways.ChatGateway;
@@ -25,7 +24,6 @@ public class UserController {
 	
 	public synchronized void getUserById(HTTPRequest request, HTTPResponse response){
 		try {
-			LogManager.getLogManager().readConfiguration(UserController.class.getResourceAsStream("/logging.properties"));
 			Connection conn = Database.getInstance().getConnection();
 			//get body of http request
 			String requestBody = request.getBody();
@@ -36,8 +34,8 @@ public class UserController {
 			ResultSet users = gateway.findUserById(Integer.parseInt(map.get("userId")));
 			String answer = XMLWrapper.getInstance().createXDocument("Users", "user", users);
 			//form body of xml response
-			response.setBody("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><user><password><email><userId>" +
-					""+users+"</user></password></email></userId>");
+			response.setBody("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><login><password><email><userId>" +
+					""+users+"</userId></email></password></login>");
 			response.setResponseCode(ResponseCodes.UserFound.toString());
 		}
 		catch(Exception ex){
@@ -60,7 +58,7 @@ public class UserController {
 			String answer = XMLWrapper.getInstance().createXDocument("Users", "user", u);
 			//form body of xml response
 			response.setBody("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><user><password><email><userId>" +
-					""+u+"</user></password></email></userId>");
+					""+u+"</userId></email></password></user>");
 			response.setResponseCode(ResponseCodes.UserFound.toString());
 		}
 		catch(Exception ex){
@@ -189,7 +187,7 @@ public class UserController {
 			//instantiate userTDO
 			UserDTO user = new UserDTO(map);
 			//perform
-			gateway.insert(user.toMap(), requests, user);
+			gateway.insert(user.toMap());
 			//set response codes
 			response.setResponseCode(ResponseCodes.UserAdded.toString());
 		}
