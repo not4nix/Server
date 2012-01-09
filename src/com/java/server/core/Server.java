@@ -7,16 +7,25 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.sql.Connection;
 import java.util.GregorianCalendar;
 
+import com.java.server.controllers.ApplicationController;
+import com.java.server.database.Database;
+import com.java.server.util.FileRouteReader;
 import com.java.server.util.logging.Log;
 
 public class Server{
-	private static int port = 8084;
+	private static int port = 8080;
 	static GregorianCalendar calendar = new GregorianCalendar();
 	public static void main(String[] args){
 		try {
-			Log.writeToFile("Server starting...");
+			Connection conn = Database.getInstance().connect();
+			Log.writeToFile("Connecting to db...");
+			ApplicationController ac = new ApplicationController();
+			Log.writeToFile("Launching application controller..");
+			FileRouteReader frr = new FileRouteReader("D:\\Server\\routingmap.rmap");
+			frr.readRoute(ac);
 			ServerSocket sock = new ServerSocket(port);
 			while(true){
 				Socket s = sock.accept();

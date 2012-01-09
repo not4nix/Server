@@ -12,6 +12,7 @@ import com.java.server.util.HTTPRequest;
 import com.java.server.util.HTTPResponse;
 import com.java.server.util.ResponseCodes;
 import com.java.server.util.XMLWrapper;
+import com.java.server.util.logging.Log;
 
 public class UserController {
 	
@@ -39,7 +40,7 @@ public class UserController {
 			response.setResponseCode(ResponseCodes.UserFound.toString());
 		}
 		catch(Exception ex){
-			ex.toString();
+			Log.writeToFile("Exception occured " + ex.toString());
 		}
 	}
 	
@@ -62,7 +63,7 @@ public class UserController {
 			response.setResponseCode(ResponseCodes.UserFound.toString());
 		}
 		catch(Exception ex){
-			//TODO: logging
+			Log.writeToFile("Exception occured " + ex.toString());
 		}
 	}
 	
@@ -81,7 +82,7 @@ public class UserController {
 			response.setResponseCode(ResponseCodes.UserDeleted.toString());
 		}
 		catch(Exception ex){
-			//TODO: logging
+			Log.writeToFile("Exception occured " + ex.toString());
 		}
 	}
 	
@@ -100,7 +101,7 @@ public class UserController {
 			response.setResponseCode(ResponseCodes.UserDeleted.toString());
 		}
 		catch(Exception ex){
-			//TODO logging
+			Log.writeToFile("Exception occured " + ex.toString());
 		}
 	}
 	
@@ -133,7 +134,7 @@ public class UserController {
 			response.setResponseCode(ResponseCodes.UserOnline.toString());
 		}
 		catch(Exception ex){
-			//TODO: logging
+			Log.writeToFile("Exception occured " + ex.toString());
 		}
 	}
 	
@@ -152,7 +153,7 @@ public class UserController {
 			response.setResponseCode(ResponseCodes.UserPasswordChanged.toString());
 		}
 		catch(Exception ex){
-			//TODO: logging
+			Log.writeToFile("Exception occured " + ex.toString());
 		}
 	}
 	
@@ -171,7 +172,7 @@ public class UserController {
 			response.setResponseCode(ResponseCodes.UserLoginChanged.toString());
 		}
 		catch(Exception ex){
-			//TODO: logging
+			Log.writeToFile("Exception occured " + ex.toString());
 		}
 	}
 	
@@ -192,7 +193,7 @@ public class UserController {
 			response.setResponseCode(ResponseCodes.UserAdded.toString());
 		}
 		catch(Exception ex){
-			//TODO: logging
+			Log.writeToFile("Exception occured " + ex.toString());
 		}
 	}
 }

@@ -13,6 +13,7 @@ import com.java.server.util.HTTPRequest;
 import com.java.server.util.HTTPResponse;
 import com.java.server.util.ResponseCodes;
 import com.java.server.util.XMLWrapper;
+import com.java.server.util.logging.Log;
 import com.ocpsoft.pretty.time.PrettyTime;
 
 public class MessageController {
@@ -30,13 +31,13 @@ public class MessageController {
 			MessageGateway gateway = new MessageGateway(con);
 			ResultSet messages = gateway.findAllRecentMessages(map.get("postdate"));
 			String answer = XMLWrapper.getInstance().createXDocument("Messages", "message", messages);
-			response.setBody("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><messageBody><messageType>" +
-					"<postdate><authorName><recipient><messageId><chatRoomId>"+messages+"</messageBody></messageType>" +
-					"</postdate></authorName></recipient></messageId></chatRoomId>");
+			response.setBody("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><messageBody>" +
+					"<postdate><authorName><recipient><messageId><chatRoomId>"+messages+"</chatRoomId></messageId>" +
+					"</recipient></authorName></postdate></messageBody>");
 			response.setResponseCode(ResponseCodes.MessageFound.toString());
 		}
 		catch(Exception ex){
-			//TODO:logging
+			Log.writeToFile("Exception occured " + ex.toString());
 		}
 	}
 	
@@ -51,7 +52,7 @@ public class MessageController {
 			response.setResponseCode(ResponseCodes.MessageDeleted.toString());
 		}
 		catch(Exception ex){
-			//TODO: logging
+			Log.writeToFile("Exception occured " + ex.toString());
 		}
 	}
     
@@ -65,11 +66,11 @@ public class MessageController {
 			String prettyTimeString = new PrettyTime(new Locale("")).format(new Date());
 			String postdate = prettyTimeString;
 			message.setPostdate(postdate);
-			gateway.insert(message.toMap(), null, null);
+			gateway.insert(message.toMap());
 			response.setResponseCode(ResponseCodes.MessageSent.toString());
 		}
 		catch(Exception ex){
-			//TODO: logging
+			Log.writeToFile("Exception occured " + ex.toString());
 		}
 	}
 	public synchronized void doSentPrivateMessage(HTTPRequest request, HTTPResponse response){}

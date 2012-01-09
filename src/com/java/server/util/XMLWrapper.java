@@ -35,6 +35,8 @@ import org.w3c.dom.NodeList;
 import org.w3c.dom.Text;
 import org.xml.sax.SAXException;
 
+import com.java.server.util.logging.Log;
+
 public class XMLWrapper {
 	
 	private Element child;
@@ -67,6 +69,8 @@ public class XMLWrapper {
 	 * @param rs ResultSet
 	 * @return xml
 	 */
+	//первоисточник http://www.mkyong.com/java/how-to-create-xml-file-in-java-dom/
+	//если ктото сомневается
 	public String createXDocument(String rootElement, String childElement, ResultSet rs){
 		try {
 			OutputStream os = new ByteArrayOutputStream();
@@ -100,20 +104,8 @@ public class XMLWrapper {
 			transform.transform(new DOMSource(doc), new StreamResult(new OutputStreamWriter(os)));
 			xml = os.toString();
 		}
-		catch(ParserConfigurationException ex){
-			Logger.getLogger(XMLWrapper.class.getName()).log(Level.WARNING,null,ex);
-		} 
-		catch (TransformerConfigurationException e) {
-			Logger.getLogger(XMLWrapper.class.getName()).log(Level.WARNING,null,e);
-		} 
-		catch (TransformerFactoryConfigurationError e) {
-			Logger.getLogger(XMLWrapper.class.getName()).log(Level.WARNING,null,e);
-		} 
-		catch (TransformerException e) {
-			Logger.getLogger(XMLWrapper.class.getName()).log(Level.WARNING,null,e);
-		} 
-		catch (SQLException e) {
-			Logger.getLogger(XMLWrapper.class.getName()).log(Level.WARNING,null,e);
+		catch(Exception ex){
+			Log.writeToFile("Exception occured " + ex.toString());
 		}
 		return xml;
 	}
@@ -174,23 +166,8 @@ public class XMLWrapper {
 			transform.transform(new DOMSource(doc), new StreamResult(new OutputStreamWriter(os)));
 			xml = os.toString();
 		}
-		catch(IOException ex){
-			Logger.getLogger(XMLWrapper.class.getName()).log(Level.WARNING,null,ex);
-		} 
-		catch (TransformerConfigurationException e) {
-			Logger.getLogger(XMLWrapper.class.getName()).log(Level.WARNING,null,e);
-		} 
-		catch (TransformerFactoryConfigurationError e) {
-			Logger.getLogger(XMLWrapper.class.getName()).log(Level.WARNING,null,e);
-		} 
-		catch (TransformerException e) {
-			Logger.getLogger(XMLWrapper.class.getName()).log(Level.WARNING,null,e);
-		} 
-		catch (SQLException e) {
-			Logger.getLogger(XMLWrapper.class.getName()).log(Level.WARNING,null,e);
-		} 
-		catch (ParserConfigurationException e) {
-			Logger.getLogger(XMLWrapper.class.getName()).log(Level.WARNING,null,e);
+		catch(Exception ex){
+			Log.writeToFile("Exception occured " + ex.toString());
 		}
 		return xml;
 	}
@@ -230,14 +207,8 @@ public class XMLWrapper {
 			transform.transform(new DOMSource(doc), new StreamResult(new OutputStreamWriter(os)));
 			xml = os.toString();
 		}
-		catch(IOException e){
-			Logger.getLogger(XMLWrapper.class.getName()).log(Level.WARNING,null,e);
-		} 
-		catch (TransformerException e) {
-			Logger.getLogger(XMLWrapper.class.getName()).log(Level.WARNING,null,e);
-		} 
-		catch (ParserConfigurationException e) {
-			Logger.getLogger(XMLWrapper.class.getName()).log(Level.WARNING,null,e);
+		catch(Exception ex){
+			Log.writeToFile("Exception occured " + ex.toString());
 		}
 		return xml;
 	}
@@ -273,14 +244,8 @@ public class XMLWrapper {
 			transform.transform(new DOMSource(doc), new StreamResult(new OutputStreamWriter(os)));
 			xml = os.toString();
 		}
-		catch(IOException ex){
-			Logger.getLogger(XMLWrapper.class.getName()).log(Level.WARNING,null,ex);
-		} 
-		catch (TransformerException e) {
-			Logger.getLogger(XMLWrapper.class.getName()).log(Level.WARNING,null,e);
-		} 
-		catch (ParserConfigurationException e) {
-			Logger.getLogger(XMLWrapper.class.getName()).log(Level.WARNING,null,e);
+		catch(Exception ex){
+			Log.writeToFile("Exception occured " + ex.toString());
 		}
 		return xml;
 	}
@@ -316,17 +281,8 @@ public class XMLWrapper {
 			transform.transform(new DOMSource(doc), new StreamResult(new OutputStreamWriter(os)));
 			xml = os.toString();
 		}
-		catch(IOException ex){
-			Logger.getLogger(XMLWrapper.class.getName()).log(Level.WARNING,null,ex);
-		} 
-		catch (ParserConfigurationException e) {
-			Logger.getLogger(XMLWrapper.class.getName()).log(Level.WARNING,null,e);
-		} 
-		catch (TransformerException e) {
-			Logger.getLogger(XMLWrapper.class.getName()).log(Level.WARNING,null,e);
-		} 
-		catch (SQLException e) {
-			Logger.getLogger(XMLWrapper.class.getName()).log(Level.WARNING,null,e);
+		catch(Exception ex){
+			Log.writeToFile("Exception occured " + ex.toString());
 		}
 		return xml;
 	}
@@ -365,20 +321,8 @@ public class XMLWrapper {
 			transform.transform(new DOMSource(doc), new StreamResult(new OutputStreamWriter(os)));
 			xml = os.toString();
 		}
-		catch(IOException ex){
-			Logger.getLogger(XMLWrapper.class.getName()).log(Level.WARNING,null,ex);
-		} 
-		catch (TransformerException e) {
-			Logger.getLogger(XMLWrapper.class.getName()).log(Level.WARNING,null,e);
-		} 
-		catch (DOMException e) {
-			Logger.getLogger(XMLWrapper.class.getName()).log(Level.WARNING,null,e);
-		} 
-		catch (SQLException e) {
-			Logger.getLogger(XMLWrapper.class.getName()).log(Level.WARNING,null,e);
-		} 
-		catch (ParserConfigurationException e) {
-			Logger.getLogger(XMLWrapper.class.getName()).log(Level.WARNING,null,e);
+		catch(Exception ex){
+			Log.writeToFile("Exception occured " + ex.toString());
 		}
 		return xml;
 	}
@@ -435,16 +379,8 @@ public class XMLWrapper {
 				}
 			}
 		}
-		catch(ParserConfigurationException ex){
-			Logger.getLogger(XMLWrapper.class.getName()).log(Level.WARNING,null,ex);
-		} 
-		catch (SAXException ex) {
-			Logger.getLogger(XMLWrapper.class.getName()).log(Level.WARNING,null,ex);
-		} 
-		catch (IOException ex) {
-			Logger.getLogger(XMLWrapper.class.getName()).log(Level.WARNING,null,ex);
+		catch(Exception ex){
+			Log.writeToFile("Exception occured " + ex.toString());
 		}
 	}
 }
-
-

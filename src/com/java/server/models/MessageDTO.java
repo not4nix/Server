@@ -10,7 +10,6 @@ import com.ocpsoft.pretty.time.PrettyTime;
 
 public class MessageDTO implements IToMap{
 	private String messageBody;
-	private String messageType;
 	private String postdate;
 	private String authorName;
 	private String recipient;
@@ -20,7 +19,6 @@ public class MessageDTO implements IToMap{
 	
 	public MessageDTO(ConcurrentHashMap<String, String> map){
 		this.messageBody = map.get("messageBody");
-		this.messageType = map.get("messageType");
 		String prettyTimeString = new PrettyTime(new Locale("")).format(new Date());
 		this.postdate = prettyTimeString;
 		this.authorName = map.get("authorName");
@@ -32,7 +30,6 @@ public class MessageDTO implements IToMap{
 	@Override
 	public Map<String, String> toMap() {
 		map.put("messageBody", this.messageBody);
-		map.put("messageType", this.messageType);
 		map.put("postdate", this.postdate);
 		map.put("authorName", this.authorName);
 		map.put("recipient", this.recipient);
@@ -47,14 +44,6 @@ public class MessageDTO implements IToMap{
 	
 	public void setMessageBody(String messageBody) {
 		this.messageBody = messageBody;
-	}
-	
-	public String getMessageType() {
-		return messageType;
-	}
-	
-	public void setMessageType(String messageType) {
-		this.messageType = messageType;
 	}
 	
 	public String getPostdate() {

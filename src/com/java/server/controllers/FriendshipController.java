@@ -10,6 +10,7 @@ import com.java.server.util.HTTPRequest;
 import com.java.server.util.HTTPResponse;
 import com.java.server.util.ResponseCodes;
 import com.java.server.util.XMLWrapper;
+import com.java.server.util.logging.Log;
 
 public class FriendshipController {
 	
@@ -29,11 +30,11 @@ public class FriendshipController {
 			ResultSet f = gateway.findFriendById(Integer.parseInt(map.get("friendshipId")));
 			String answer = XMLWrapper.getInstance().createXDocument("Friends", "friend", f);
 			response.setBody("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><friendName><initiatorName><friendshipId>" +
-					""+f+"</friendName></initiatorName></friendshipId>");
+					""+f+"</friendshipId></initiatorName></friendName>");
 			response.setResponseCode(ResponseCodes.FriendFound.toString());
 		}
 		catch(Exception ex){
-			//TODO logging
+			Log.writeToFile("Exception occured " + ex.toString());
 		}
 	}
 	
@@ -47,7 +48,7 @@ public class FriendshipController {
 			response.setResponseCode(ResponseCodes.FriendshipCreated.toString());
 		}
 		catch(Exception ex){
-			//TODO: logging
+			Log.writeToFile("Exception occured " + ex.toString());
 		}
 	}
 	
@@ -61,7 +62,7 @@ public class FriendshipController {
 			response.setResponseCode(ResponseCodes.FriendshipTerminated.toString());
 		}
 		catch(Exception ex){
-			//TODO: logging
+			Log.writeToFile("Exception occured " + ex.toString());
 		}
 	}
     public synchronized void doRefuseFriendship(HTTPRequest request, HTTPResponse response){}
