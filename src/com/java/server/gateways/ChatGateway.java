@@ -63,6 +63,20 @@ public class ChatGateway extends TableGateway{
 		return null;
 	}
 	
+	public synchronized ResultSet getAllChatUsers(int id){
+		try {
+			Statement stmt = con.createStatement();
+			String sql = "SELECT user_tbl.login, user_tbl.id FROM chatroom_tbl,chatuser_tbl,user_tbl " +
+			             "WHERE chatroom_tbl.id = chatuser_tbl.chatRoomId " +
+			             "AND chatuser_tbl.user_id = user_tbl.id AND chatroom_tbl.chatRoomId = "+id+"";
+			ResultSet rs = stmt.executeQuery(sql);
+		}
+		catch(Exception ex){
+			Log.writeToFile("Exception occured " + ex.toString());
+		}
+		return null;
+	}
+	
 	public synchronized void deleteAllRooms(){
 		try {
 			Statement stmt = con.createStatement();
