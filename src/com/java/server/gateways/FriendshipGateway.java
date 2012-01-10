@@ -9,7 +9,7 @@ import com.java.server.util.logging.Log;
 
 public class FriendshipGateway extends TableGateway{
 
-	String tableName = "friends_tbl";
+	String tableName = "friendship_tbl";
 	public FriendshipGateway(Connection conn) {
 		super(conn, "friends_tbl");
 		// TODO Auto-generated constructor stub

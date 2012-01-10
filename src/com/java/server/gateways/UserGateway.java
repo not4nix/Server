@@ -9,7 +9,7 @@ import com.java.server.util.logging.Log;
 
 public class UserGateway extends TableGateway{
 
-	String tableName = "user_tbl";
+	String tableName = "users_tbl";
 	public UserGateway(Connection conn) {
 		super(conn, "user_tbl");
 		// TODO Auto-generated constructor stub

@@ -9,7 +9,7 @@ import com.java.server.util.logging.Log;
 
 public class ChatGateway extends TableGateway{
 
-	String tableName = "chat_tbl";
+	String tableName = "chatroom_tbl";
 	public ChatGateway(Connection conn) {
 		super(conn, "chat_tbl");
 		// TODO Auto-generated constructor stub
@@ -66,9 +66,9 @@ public class ChatGateway extends TableGateway{
 	public synchronized ResultSet getAllChatUsers(int id){
 		try {
 			Statement stmt = con.createStatement();
-			String sql = "SELECT user_tbl.login, user_tbl.userId FROM chatroom_tbl,chatuser_tbl,user_tbl " +
+			String sql = "SELECT users_tbl.login, users_tbl.userId FROM chatroom_tbl,chatuser_tbl,users_tbl " +
 			             "WHERE chatroom_tbl.id = chatuser_tbl.chatRoomId " +
-			             "AND chatuser_tbl.chatUserId = user_tbl.userId AND chatroom_tbl.chatRoomId = "+id+"";
+			             "AND chatuser_tbl.chatUserId = users_tbl.userId AND chatroom_tbl.chatRoomId = "+id+"";
 			ResultSet rs = stmt.executeQuery(sql);
 		}
 		catch(Exception ex){
