@@ -25,6 +25,18 @@ public class Server{
 			Log.writeToFile("Launching application controller..");
 			ac.addRoute("POST","/user_tbl/doLogOn/", "HTTP/1.1");
 			ac.addRoute("POST", "/user_tbl/", "HTTP/1.1");
+			ac.addRoute("GET", "/user_tbl/getUserById/", "HTTP/1.1");
+			ac.addRoute("POST","/user_tbl/doRegister/", "HTTP/1.1");
+			ac.addRoute("GET", "/friendship_tbl/getFriendById/", "HTTP/1.1");
+			ac.addRoute("POST", "/friendship_tbl/doCreateFriendship/", "HTTP/1.1");
+			ac.addRoute("GET", "/messages_tbl/getMessagesByDate/", "HTTP/1.1");
+			ac.addRoute("DELETE", "/messages_tbl/deleteOldMessages/", "HTTP/1.1");
+			ac.addRoute("POST", "/messages_tbl/doSentMessageToChat/", "HTTP/1.1");
+			ac.addRoute("GET", "/chatroom_tbl/getChatRoomCreator/", "HTTP/1.1");
+			ac.addRoute("POST", "/chatroom_tbl/createRoom/", "HTTP/1.1");
+			ac.addRoute("DELETE", "/chatroom_tbl/deleteRoom/", "HTTP/1.1");
+			ac.addRoute("POST", "/chatroom_tbl/addUserToRoom/", "HTTP/1.1");
+			ac.addRoute("DELETE", "/chatroom_tbl/kickUserFromRoom/", "HTTP/1.1");
 			Log.writeToFile("Routes added... ");
 			ServerSocket sock = new ServerSocket(port);
 			while(true){
@@ -52,6 +64,7 @@ public class Server{
 		@Override
 		public void run() {
 			try {
+				//if we typing in browser http://127.0.0.1:8080 we'll got this response
 				readInputHeaders();
 				writeResponse("<html><body><h1>Welcome to server, man</h1><h2>This is server for chatting in varous chat rooms</h2>" +
 						"<h3>Enjoy</h3></body></html>");
