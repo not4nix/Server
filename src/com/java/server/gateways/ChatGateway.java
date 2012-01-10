@@ -66,9 +66,9 @@ public class ChatGateway extends TableGateway{
 	public synchronized ResultSet getAllChatUsers(int id){
 		try {
 			Statement stmt = con.createStatement();
-			String sql = "SELECT user_tbl.login, user_tbl.id FROM chatroom_tbl,chatuser_tbl,user_tbl " +
+			String sql = "SELECT user_tbl.login, user_tbl.userId FROM chatroom_tbl,chatuser_tbl,user_tbl " +
 			             "WHERE chatroom_tbl.id = chatuser_tbl.chatRoomId " +
-			             "AND chatuser_tbl.user_id = user_tbl.id AND chatroom_tbl.chatRoomId = "+id+"";
+			             "AND chatuser_tbl.chatUserId = user_tbl.userId AND chatroom_tbl.chatRoomId = "+id+"";
 			ResultSet rs = stmt.executeQuery(sql);
 		}
 		catch(Exception ex){
