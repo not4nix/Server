@@ -12,7 +12,6 @@ import java.util.GregorianCalendar;
 
 import com.java.server.controllers.ApplicationController;
 import com.java.server.database.Database;
-import com.java.server.util.FileRouteReader;
 import com.java.server.util.logging.Log;
 
 public class Server{
@@ -24,8 +23,9 @@ public class Server{
 			Log.writeToFile("Connecting to db...");
 			ApplicationController ac = new ApplicationController();
 			Log.writeToFile("Launching application controller..");
-			FileRouteReader frr = new FileRouteReader("D:\\Server\\routingmap.rmap");
-			frr.readRoute(ac);
+			ac.addRoute("POST","/user_tbl/doLogOn/", "HTTP/1.1");
+			ac.addRoute("POST", "/user_tbl/", "HTTP/1.1");
+			Log.writeToFile("Routes added... ");
 			ServerSocket sock = new ServerSocket(port);
 			while(true){
 				Socket s = sock.accept();
