@@ -6,6 +6,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import com.java.server.database.Database;
 import com.java.server.gateways.ChatGateway;
+import com.java.server.gateways.TableGateway;
 import com.java.server.gateways.UserGateway;
 import com.java.server.models.UserDTO;
 import com.java.server.util.HTTPRequest;
@@ -74,10 +75,10 @@ public class UserController {
 			String requestBody = request.getBody();
 			//parse body of http request
 			XMLWrapper.getInstance().parse(map, requestBody);
-			//instantiate user gateway
-			UserGateway gateway = new UserGateway(conn);
-			//perform deleting
-			gateway.deleteUser(Integer.parseInt(map.get("userId")));
+			TableGateway gateway = new UserGateway(conn);
+			gateway.delete(Integer.parseInt("userId"));
+//			UserGateway gateway = new UserGateway(conn);
+//			gateway.deleteUser(Integer.parseInt(map.get("userId")));
 			//set response code
 			response.setResponseCode(ResponseCodes.UserDeleted.toString());
 		}

@@ -6,6 +6,8 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import com.java.server.database.Database;
 import com.java.server.gateways.FriendshipGateway;
+import com.java.server.gateways.TableGateway;
+import com.java.server.models.FriendshipDTO;
 import com.java.server.util.HTTPRequest;
 import com.java.server.util.HTTPResponse;
 import com.java.server.util.ResponseCodes;
@@ -43,8 +45,11 @@ public class FriendshipController {
 			Connection con = Database.getInstance().getConnection();
 			String httpRequest = request.getBody();
 			XMLWrapper.getInstance().parse(map, httpRequest);
-			FriendshipGateway gateway = new FriendshipGateway(con);
-			gateway.createFriend(map.get("friendName"), map.get("initiatorName"));
+			TableGateway gateway = new FriendshipGateway(con);
+			FriendshipDTO dto = new FriendshipDTO(map);
+			gateway.insert(dto.toMap());
+//			FriendshipGateway gateway = new FriendshipGateway(con);
+//			gateway.createFriend(map.get("friendName"), map.get("initiatorName"));
 			response.setResponseCode(ResponseCodes.FriendshipCreated.toString());
 		}
 		catch(Exception ex){
@@ -57,8 +62,8 @@ public class FriendshipController {
 			Connection con = Database.getInstance().getConnection();
 			String httpRequest = request.getBody();
 			XMLWrapper.getInstance().parse(map, httpRequest);
-			FriendshipGateway gateway = new FriendshipGateway(con);
-			gateway.deleteFriend(Integer.parseInt(map.get("friendshipId")));
+			TableGateway gateway = new FriendshipGateway(con);
+			gateway.delete(Integer.parseInt(map.get("friendshipId")));
 			response.setResponseCode(ResponseCodes.FriendshipTerminated.toString());
 		}
 		catch(Exception ex){
