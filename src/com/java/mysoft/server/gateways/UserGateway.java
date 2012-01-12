@@ -33,7 +33,6 @@ public class UserGateway extends TableGateway{
 	public synchronized void changeLogin(String login, int id){
 		try {
 			Connection conn = Db.getInstance().createConnection();
-			Connection conn = Db.getInstance().getConnection();
 			Statement stmt = conn.createStatement();
 			String sql = "UPDATE "+tableName+"SET `login` ='"+login+"' WHERE `userId` ="+id+"";
 			stmt.executeUpdate(sql);
