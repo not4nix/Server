@@ -34,7 +34,9 @@ public class EventThread implements Runnable{
 					events.poll();
 				}
 				catch(Exception e)
-				{e.printStackTrace();}
+				{
+                                  Logger.writeToFile("Exception occured " + ex.toString());
+                                }      
 			}
 			try 
 			{
