@@ -35,7 +35,7 @@ public class SocketData implements Runnable{
 	}
 	
 	@Override
-	public void run() {
+	public synchronized void run() {
 		try {
 			//if we typing in browser http://127.0.0.1:8080 we'll got this response
 			readInputHeaders();
